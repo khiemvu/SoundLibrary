@@ -43,7 +43,7 @@ public class DownloadAndPlayAudio extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_audio_example);
         // Show Download Music Button
         btnPlayMusic = (Button) findViewById(R.id.btnProgressBar);
         // Download Music Button click listener

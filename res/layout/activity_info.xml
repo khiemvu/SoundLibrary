@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/common_bg"
+        >
+    <LinearLayout
+            android:id="@+id/content_layout_llTitle"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/topbottomtitle"
+            android:gravity="center"
+            >
+        <TextView
+                android:id="@+id/content_layout_tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Introduction Apps"
+                android:textColor="@color/color_while"
+                android:textStyle="bold"
+                android:textSize="24dp"
+                />
+    </LinearLayout>
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        <WebView
+                android:id="@+id/label"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@+id/label"
+                >
+        </WebView>
+    </RelativeLayout>
+
+</LinearLayout>
