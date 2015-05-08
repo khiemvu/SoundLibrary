@@ -1,44 +1,31 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.oman.allinone"
-          android:versionCode="1"
-          android:versionName="1.0">
+    package="com.oman.allinone"
+    android:versionCode="1"
+    android:versionName="1.0">
 
     <uses-sdk
-            android:minSdkVersion="10"
-            android:targetSdkVersion="15"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+        android:minSdkVersion="10"
+        android:targetSdkVersion="15" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- Permission: Writing to SDCard -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
-            android:icon="@drawable/icon_app"
-            android:label="@string/app_name"
-
-            >
-        <!--<activity-->
-        <!--android:name=".temp.DownloadAndPlayVideo"-->
-        <!--android:label="@string/title_activity_asyn_task_example" android:screenOrientation="portrait">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN"/>-->
-        <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-        <!--</intent-filter>-->
-        <!--</activity>-->
-
+        android:icon="@drawable/icon_app"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar">
         <activity
-                android:name=".ui.activity.MainActivity"
-                android:theme="@android:style/Theme.NoTitleBar"
-                android:label="@string/app_name">
+            android:name=".ui.activity.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.AboutActivity"
-                  android:theme="@android:style/Theme.NoTitleBar">
-        </activity>
-        <activity android:name=".ui.activity.InfoActivity"
-                  android:theme="@android:style/Theme.NoTitleBar">
-        </activity>
+        <activity android:name=".ui.activity.AboutActivity" />
+        <activity android:name=".ui.activity.InfoActivity" />
+        <activity android:name=".ui.activity.ListSoundCategoryActivity" />
     </application>
 
 </manifest>

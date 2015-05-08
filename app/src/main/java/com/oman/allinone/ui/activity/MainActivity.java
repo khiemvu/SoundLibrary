@@ -6,17 +6,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import com.oman.allinone.R;
 
-public class MainActivity extends Activity
-{
+public class MainActivity extends Activity implements View.OnClickListener {
     private Button btSound;
     private Button btAbout;
     private Button btVideo;
     private Button btFavourite;
 
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btSound = (Button) findViewById(R.id.btSound);
@@ -25,21 +24,28 @@ public class MainActivity extends Activity
         btAbout = (Button) findViewById(R.id.btAbout);
 
 
-        btAbout.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
-                startActivity(intent);
-            }
-        });
+        btAbout.setOnClickListener(this);
+        btSound.setOnClickListener(this);
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        switch (v.getId()) {
+            case R.id.btAbout:
+                intent = new Intent(getApplicationContext(), AboutActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btSound:
+                intent = new Intent(getApplicationContext(), ListSoundCategoryActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

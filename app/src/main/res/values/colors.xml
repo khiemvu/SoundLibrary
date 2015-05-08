@@ -3,4 +3,6 @@
     <color name="ColorTextViewTime">#8a8a8a</color>
     <color name="color_while">#FFFFFF</color>
     <color name="bar_background">#DCDCDC</color>
+    <color name="blue">#0033cc</color>
+    <color name="black">#000000</color>
 </resources>
