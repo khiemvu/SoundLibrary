@@ -3,7 +3,7 @@ package com.oman.allinone.dto;
 /**
  * Created by Khiemvx on 5/7/2015.
  */
-public class ListSoundDTO {
+public class ListSoundCategoryDTO {
     private int id;
     private int parent_id;
     private int lft;
@@ -12,7 +12,7 @@ public class ListSoundDTO {
     private String title;
     private String alias;
 
-    public ListSoundDTO() {
+    public ListSoundCategoryDTO() {
     }
 
     public int getId() {

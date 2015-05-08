@@ -9,19 +9,19 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.oman.allinone.R;
-import com.oman.allinone.dto.ListSoundCategoryDTO;
+import com.oman.allinone.dto.ListSoundFileDTO;
 
 import java.util.List;
 
 /**
- * Created by Khiemvx on 5/7/2015.
+ * Created by Khiemvx on 5/8/2015.
  */
-public class SoundsAdapter extends BaseAdapter {
+public class FileSoundAdapter extends BaseAdapter {
     private final Activity context;
-    private final List<ListSoundCategoryDTO> listContents;
+    private final List<ListSoundFileDTO> listContents;
     private LayoutInflater inflater;
 
-    public SoundsAdapter(Activity context, List<ListSoundCategoryDTO> listContents) {
+    public FileSoundAdapter(Activity context, List<ListSoundFileDTO> listContents) {
         this.context = context;
         this.listContents = listContents;
     }
@@ -54,7 +54,7 @@ public class SoundsAdapter extends BaseAdapter {
         }
 
         ViewHolder holder = (ViewHolder) rowView.getTag();
-        holder.text.setText(listContents.get(position).getTitle());
+        holder.text.setText(listContents.get(position).getFile_title());
 
         return rowView;
     }

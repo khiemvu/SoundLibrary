@@ -26,6 +26,8 @@
         <activity android:name=".ui.activity.AboutActivity" />
         <activity android:name=".ui.activity.InfoActivity" />
         <activity android:name=".ui.activity.ListSoundCategoryActivity" />
+        <activity android:name=".ui.activity.ListFileSoundActivity" />
+        <activity android:name=".ui.activity.ListSubSoundCategoriesActivity" />
     </application>
 
 </manifest>

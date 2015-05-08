@@ -1,6 +1,6 @@
 package com.oman.allinone.event;
 
-import com.oman.allinone.dto.ListSoundDTO;
+import com.oman.allinone.dto.ListSoundCategoryDTO;
 
 import java.util.List;
 
@@ -8,13 +8,13 @@ import java.util.List;
  * Created by Khiemvx on 5/7/2015.
  */
 public class GetListSoundResponseEvent {
-    private List<ListSoundDTO> listSoundDTOs;
+    private List<ListSoundCategoryDTO> listSoundDTOs;
 
-    public GetListSoundResponseEvent(List<ListSoundDTO> listSoundDTOs) {
+    public GetListSoundResponseEvent(List<ListSoundCategoryDTO> listSoundDTOs) {
         this.listSoundDTOs = listSoundDTOs;
     }
 
-    public List<ListSoundDTO> getListSoundDTOs() {
+    public List<ListSoundCategoryDTO> getListSoundDTOs() {
         return listSoundDTOs;
     }
 }

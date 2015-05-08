@@ -15,11 +15,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.oman.allinone.R;
-import com.oman.allinone.adapter.SoundsAdapter;
+import com.oman.allinone.adapter.SubSoundsAdapter;
 import com.oman.allinone.common.URLServices;
-import com.oman.allinone.dto.ListSoundCategoryDTO;
-import com.oman.allinone.event.GetListSoundEvent;
-import com.oman.allinone.event.GetListSoundResponseEvent;
+import com.oman.allinone.dto.ListSubSoundCategoryDTO;
+import com.oman.allinone.event.GetSubSoundEvent;
+import com.oman.allinone.event.GetSubSoundResponseEvent;
 import com.oman.allinone.utils.NetworkUtils;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -31,12 +31,12 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-
 /**
- * Created by Khiemvx on 5/7/2015.
+ * Created by Khiemvx on 5/8/2015.
  */
-public class ListSoundCategoryActivity extends Activity implements View.OnClickListener {
-    SoundsAdapter soundsAdapter;
+public class ListSubSoundCategoriesActivity extends Activity implements View.OnClickListener {
+    SubSoundsAdapter soundsAdapter;
+    int category_id;
     private TextView btBack, tvTitle;
     private Button btHome, btSearch, btShare, btFavourite;
     private ListView lvContent;
@@ -47,27 +47,29 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
         lvContent = (ListView) findViewById(R.id.lvContent);
         btBack = (TextView) findViewById(R.id.tvBack);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("Categories");
+        tvTitle.setText("SubCategories");
         btHome = (Button) findViewById(R.id.btHome);
         btSearch = (Button) findViewById(R.id.btSearch);
         btFavourite = (Button) findViewById(R.id.btFavourite);
         btShare = (Button) findViewById(R.id.btShare);
+        Bundle extras = getIntent().getExtras();
+        category_id = extras.getInt("category_id");
         btBack.setOnClickListener(this);
         EventBus.getDefault().register(this);
         getDataFromServer();
         lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ListSubSoundCategoriesActivity.class);
-                ListSoundCategoryDTO listSoundDTO = (ListSoundCategoryDTO) lvContent.getItemAtPosition(position);
-                intent.putExtra("category_id", listSoundDTO.getId());
+                Intent intent = new Intent(getApplicationContext(), ListFileSoundActivity.class);
+                ListSubSoundCategoryDTO listSoundDTO = (ListSubSoundCategoryDTO) lvContent.getItemAtPosition(position);
+                intent.putExtra("file_id", listSoundDTO.getParent_id());
                 startActivity(intent);
             }
         });
     }
 
     private void getDataFromServer() {
-        EventBus.getDefault().post(new GetListSoundEvent());
+        EventBus.getDefault().post(new GetSubSoundEvent());
     }
 
     @Override
@@ -84,8 +86,8 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
         super.onBackPressed();
     }
 
-    public void onEventBackgroundThread(GetListSoundEvent event) throws IOException {
-        String url = URLServices.getInstance().getURLGetListSounds();
+    public void onEventBackgroundThread(GetSubSoundEvent event) throws IOException {
+        String url = URLServices.getInstance().getURLGetSubSounds(category_id);
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -96,22 +98,22 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
         JsonElement rootResult = jsonParser.parse(jsonResult);
         JsonObject rootResultObject = rootResult.getAsJsonObject();
         Gson gson = new Gson();
-        List<ListSoundCategoryDTO> results = new ArrayList<ListSoundCategoryDTO>();
-        ListSoundCategoryDTO temp;
+        List<ListSubSoundCategoryDTO> results = new ArrayList<ListSubSoundCategoryDTO>();
+        ListSubSoundCategoryDTO temp;
         if (!rootResultObject.get("data").equals(null)) {
             JsonArray resultDTOJson = rootResultObject.get("data").getAsJsonArray();
             Iterator<JsonElement> iterator = resultDTOJson.iterator();
 
             while (iterator.hasNext()) {
-                temp = gson.fromJson(iterator.next(), ListSoundCategoryDTO.class);
+                temp = gson.fromJson(iterator.next(), ListSubSoundCategoryDTO.class);
                 results.add(temp);
             }
         }
-        EventBus.getDefault().post(new GetListSoundResponseEvent(results));
+        EventBus.getDefault().post(new GetSubSoundResponseEvent(results));
     }
 
-    public void onEventMainThread(GetListSoundResponseEvent event) {
-        soundsAdapter = new SoundsAdapter(this, event.getListSoundDTOs());
+    public void onEventMainThread(GetSubSoundResponseEvent event) {
+        soundsAdapter = new SubSoundsAdapter(this, event.getResults());
         lvContent.setAdapter(soundsAdapter);
     }
 
