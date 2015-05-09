@@ -26,6 +26,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         btAbout.setOnClickListener(this);
         btSound.setOnClickListener(this);
+        btVideo.setOnClickListener(this);
     }
 
     @Override
@@ -44,6 +45,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btSound:
                 intent = new Intent(getApplicationContext(), ListSoundCategoryActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btVideo:
+                intent = new Intent(getApplicationContext(), ListVideoCategoryActivity.class);
                 startActivity(intent);
                 break;
         }

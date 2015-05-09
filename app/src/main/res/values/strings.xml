@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">Sound Library</string>
@@ -7,4 +8,10 @@
     <string name="btn_title">Download Song</string>
     <string name="categories">Categories</string>
     <string name="back">Back</string>
+    <string name="title_activity_list_video_child_cagetory">ListVideoChildCagetoryActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_play_sound">PlaySoundActivity</string>
+    <string name="title_activity_list_file_video">ListFileVideoActivity</string>
+    <string name="title_activity_play_video">PlayVideoActivity</string>
+
 </resources>

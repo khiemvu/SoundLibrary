@@ -16,35 +16,42 @@ import java.util.List;
 /**
  * Created by Khiemvx on 5/8/2015.
  */
-public class FileSoundAdapter extends BaseAdapter {
+public class FileSoundAdapter extends BaseAdapter
+{
     private final Activity context;
     private final List<ListSoundFileDTO> listContents;
     private LayoutInflater inflater;
 
-    public FileSoundAdapter(Activity context, List<ListSoundFileDTO> listContents) {
+    public FileSoundAdapter(Activity context, List<ListSoundFileDTO> listContents)
+    {
         this.context = context;
         this.listContents = listContents;
     }
 
     @Override
-    public int getCount() {
+    public int getCount()
+    {
         return listContents.size();
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object getItem(int position)
+    {
         return listContents.get(position);
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(int position)
+    {
         return position;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
         View rowView = convertView;
-        if (rowView == null) {
+        if (rowView == null)
+        {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             rowView = inflater.inflate(R.layout.item_list_view, null);
@@ -59,7 +66,8 @@ public class FileSoundAdapter extends BaseAdapter {
         return rowView;
     }
 
-    static class ViewHolder {
+    static class ViewHolder
+    {
         public TextView text;
     }
 }

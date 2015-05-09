@@ -17,6 +17,12 @@ public class URLServices {
     public String getURLGetListSounds() {
         return URL + "sound_category";
     }
+    public String getURLGetListVideos() {
+        return URL + "video_category";
+    }
+    public String getURLGetListSubVideos(int parent_id) {
+        return URL + "video_child_category?parent_id=" + parent_id;
+    }
 
     public String getURLGetSubSounds(int parent_id) {
         return URL + "sound_child_category?parent_id=" + parent_id;
@@ -24,5 +30,10 @@ public class URLServices {
 
     public String getURLGetFileSounds(int file_id) {
         return URL + "sound_file?category_id=" + file_id;
+    }
+
+    public String getURLGetFileVideos(int file_id) {
+
+        return URL + "video_file?category_id=" + file_id;
     }
 }

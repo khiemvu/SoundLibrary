@@ -3,17 +3,14 @@ package com.oman.allinone.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import com.oman.allinone.R;
 import com.oman.allinone.adapter.FileSoundAdapter;
 import com.oman.allinone.common.URLServices;
@@ -23,18 +20,14 @@ import com.oman.allinone.event.GetFileSoundResponseEvent;
 import com.oman.allinone.utils.NetworkUtils;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import de.greenrobot.event.EventBus;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import de.greenrobot.event.EventBus;
-
-/**
- * Created by Khiemvx on 5/8/2015.
- */
-public class ListFileSoundActivity extends Activity implements View.OnClickListener , AdapterView.OnItemClickListener
+public class ListFileVideoActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener
 {
     FileSoundAdapter fileSoundAdapter;
     int file_id;
@@ -42,7 +35,8 @@ public class ListFileSoundActivity extends Activity implements View.OnClickListe
     private Button btHome, btSearch, btShare, btFavourite;
     private ListView lvContent;
 
-    public void onCreate(Bundle savedInstanceState)
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_sound_category);
@@ -86,7 +80,7 @@ public class ListFileSoundActivity extends Activity implements View.OnClickListe
 
     public void onEventBackgroundThread(GetFileSoundEvent event) throws IOException
     {
-        String url = URLServices.getInstance().getURLGetFileSounds(13);
+        String url = URLServices.getInstance().getURLGetFileVideos(file_id);
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -129,8 +123,9 @@ public class ListFileSoundActivity extends Activity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-        Intent intent = new Intent(getApplicationContext(),PlaySoundActivity.class);
-        intent.putExtra("url",((ListSoundFileDTO)fileSoundAdapter.getItem(position)).getExtern_file());
+        Intent intent = new Intent(getApplicationContext(), PlayVideoActivity
+                .class);
+        intent.putExtra("url", ((ListSoundFileDTO) fileSoundAdapter.getItem(position)).getExtern_file());
         startActivity(intent);
     }
 }
