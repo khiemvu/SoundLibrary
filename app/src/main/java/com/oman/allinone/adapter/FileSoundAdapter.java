@@ -19,7 +19,7 @@ import java.util.List;
 public class FileSoundAdapter extends BaseAdapter
 {
     private final Activity context;
-    private final List<ListSoundFileDTO> listContents;
+    private List<ListSoundFileDTO> listContents;
     private LayoutInflater inflater;
 
     public FileSoundAdapter(Activity context, List<ListSoundFileDTO> listContents)
@@ -69,5 +69,14 @@ public class FileSoundAdapter extends BaseAdapter
     static class ViewHolder
     {
         public TextView text;
+    }
+
+    public List<ListSoundFileDTO> getListContents()
+    {
+        return listContents;
+    }
+    public void setListContents(List<ListSoundFileDTO> listContents)
+    {
+        this.listContents = listContents;
     }
 }

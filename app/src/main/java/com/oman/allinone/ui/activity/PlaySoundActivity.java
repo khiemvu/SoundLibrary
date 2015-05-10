@@ -8,31 +8,46 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.SeekBar;
+import android.widget.*;
 import com.oman.allinone.R;
+import com.oman.allinone.dto.ListSoundFileDTO;
+
+import java.util.List;
 
 public class PlaySoundActivity extends Activity implements
         View.OnClickListener, View.OnTouchListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener
 {
-    private Button buttonPlayPause;
+    private ImageView buttonPlayPause;
     private SeekBar seekBarProgress;
     private MediaPlayer mediaPlayer;
     private int mediaFileLengthInMilliseconds;
     private final Handler handler = new Handler();
+    private ImageView btNext;
+    private ImageView btPrevious;
+    private TextView tvName;
+    List<ListSoundFileDTO> listFie;
+    private int position;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_sound);
-        buttonPlayPause = (Button) findViewById(R.id.btPlay);
+        buttonPlayPause = (ImageView) findViewById(R.id.btPlay);
+        btNext = (ImageView) findViewById(R.id.btNext);
+        btPrevious = (ImageView) findViewById(R.id.btBack);
         seekBarProgress = (SeekBar) findViewById(R.id.seekBar);
+        tvName = (TextView) findViewById(R.id.tvNameOfSound);
         buttonPlayPause.setOnClickListener(this);
+        btNext.setOnClickListener(this);
+        btPrevious.setOnClickListener(this);
         seekBarProgress.setMax(99); // It means 100% .0-99
         seekBarProgress.setOnTouchListener(this);
-
+        listFie = getIntent().getExtras().getParcelableArrayList("data");
+        position = getIntent().getExtras().getInt("position");
+        url = listFie.get(position).getExtern_file();
+        tvName.setText(listFie.get(position).getFile_title());
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnBufferingUpdateListener(this);
         mediaPlayer.setOnCompletionListener(this);
@@ -69,8 +84,8 @@ public class PlaySoundActivity extends Activity implements
             /** ImageButton onClick event handler. Method which start/pause mediaplayer playing */
             try
             {
-                mediaPlayer.setDataSource(getIntent().getExtras().getString("url")); // setup song from http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3 URL to mediaplayer data source
-                mediaPlayer.prepare(); // you must call this method after setup the datasource in setDataSource method. After calling prepare() the instance of MediaPlayer starts load data from URL to internal buffer.
+                mediaPlayer.setDataSource(url);
+                mediaPlayer.prepare();
             }
             catch (Exception e)
             {
@@ -82,22 +97,47 @@ public class PlaySoundActivity extends Activity implements
             if (!mediaPlayer.isPlaying())
             {
                 mediaPlayer.start();
-                buttonPlayPause.setText("Pause");
+                buttonPlayPause.setImageResource(R.drawable.pause);
             }
             else
             {
                 mediaPlayer.pause();
-                buttonPlayPause.setText("Play");
+                buttonPlayPause.setImageResource(R.drawable.play);
             }
 
             primarySeekBarProgressUpdater();
+        }
+        if(v.getId() == R.id.btNext)
+        {
+            if(position < (listFie.size() -1))
+            {
+                mediaPlayer.stop();
+                buttonPlayPause.setImageResource(R.drawable.play);
+                seekBarProgress.setSecondaryProgress(0);
+                position = position + 1;
+                url = listFie.get(position).getExtern_file();
+                tvName.setText(listFie.get(position).getFile_title());
+            }
+
+        }
+        if(v.getId() == R.id.btBack)
+        {
+            if(position > 0)
+            {
+                mediaPlayer.stop();
+                buttonPlayPause.setImageResource(R.drawable.play);
+                seekBarProgress.setSecondaryProgress(0);
+                position = position -1;
+                url = listFie.get(position).getExtern_file();
+                tvName.setText(listFie.get(position).getFile_title());
+            }
         }
     }
 
     @Override
     public void onCompletion(MediaPlayer mp)
     {
-        buttonPlayPause.setText("Play");
+        buttonPlayPause.setImageResource(R.drawable.play);
     }
 
     @Override

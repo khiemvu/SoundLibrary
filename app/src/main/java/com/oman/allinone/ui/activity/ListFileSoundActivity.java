@@ -131,6 +131,10 @@ public class ListFileSoundActivity extends Activity implements View.OnClickListe
     {
         Intent intent = new Intent(getApplicationContext(),PlaySoundActivity.class);
         intent.putExtra("url",((ListSoundFileDTO)fileSoundAdapter.getItem(position)).getExtern_file());
+        intent.putExtra("position",position);
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("data", (ArrayList<? extends android.os.Parcelable>) fileSoundAdapter.getListContents());
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }
