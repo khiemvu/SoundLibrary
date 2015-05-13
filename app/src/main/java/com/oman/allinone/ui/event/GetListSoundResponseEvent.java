@@ -1,4 +1,4 @@
-package com.oman.allinone.event;
+package com.oman.allinone.ui.event;
 
 import com.oman.allinone.dto.ListSoundCategoryDTO;
 

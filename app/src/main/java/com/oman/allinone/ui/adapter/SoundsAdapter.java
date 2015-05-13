@@ -1,4 +1,4 @@
-package com.oman.allinone.adapter;
+package com.oman.allinone.ui.adapter;
 
 import android.app.Activity;
 import android.content.Context;

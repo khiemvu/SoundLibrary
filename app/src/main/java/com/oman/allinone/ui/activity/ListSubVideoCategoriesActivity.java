@@ -3,30 +3,33 @@ package com.oman.allinone.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.google.gson.*;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.oman.allinone.R;
-import com.oman.allinone.adapter.SoundsAdapter;
-import com.oman.allinone.adapter.SubSoundsAdapter;
 import com.oman.allinone.common.URLServices;
-//import com.oman.allinone.dto.ListSoundDTO;
 import com.oman.allinone.dto.ListSubSoundCategoryDTO;
-import com.oman.allinone.event.*;
+import com.oman.allinone.ui.adapter.SubSoundsAdapter;
+import com.oman.allinone.ui.event.GetSubVideoEvent;
+import com.oman.allinone.ui.event.GetSubVideoResponseEvent;
 import com.oman.allinone.utils.NetworkUtils;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import de.greenrobot.event.EventBus;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 public class ListSubVideoCategoriesActivity extends Activity implements View.OnClickListener
 {
@@ -74,7 +77,7 @@ public class ListSubVideoCategoriesActivity extends Activity implements View.OnC
     }
 
     public void onEventBackgroundThread(GetSubVideoEvent event) throws IOException {
-        String url = URLServices.getInstance().getURLGetListSubVideos(1);
+        String url = URLServices.getInstance().getURLGetListSubVideos(parentId);
         Request request = new Request.Builder()
                 .url(url)
                 .build();

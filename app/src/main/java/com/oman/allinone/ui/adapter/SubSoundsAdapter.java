@@ -1,4 +1,4 @@
-package com.oman.allinone.adapter;
+package com.oman.allinone.ui.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.oman.allinone.R;
-import com.oman.allinone.dto.ListSoundCategoryDTO;
 import com.oman.allinone.dto.ListSubSoundCategoryDTO;
 
 import java.util.List;

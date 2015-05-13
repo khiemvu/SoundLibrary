@@ -15,11 +15,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.oman.allinone.R;
-import com.oman.allinone.adapter.SubSoundsAdapter;
+import com.oman.allinone.ui.adapter.SubSoundsAdapter;
 import com.oman.allinone.common.URLServices;
 import com.oman.allinone.dto.ListSubSoundCategoryDTO;
-import com.oman.allinone.event.GetSubSoundEvent;
-import com.oman.allinone.event.GetSubSoundResponseEvent;
+import com.oman.allinone.ui.event.GetSubSoundEvent;
+import com.oman.allinone.ui.event.GetSubSoundResponseEvent;
 import com.oman.allinone.utils.NetworkUtils;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -62,7 +62,7 @@ public class ListSubSoundCategoriesActivity extends Activity implements View.OnC
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), ListFileSoundActivity.class);
                 ListSubSoundCategoryDTO listSoundDTO = (ListSubSoundCategoryDTO) lvContent.getItemAtPosition(position);
-                intent.putExtra("file_id", listSoundDTO.getParent_id());
+                intent.putExtra("file_id", listSoundDTO.getId());
                 startActivity(intent);
             }
         });

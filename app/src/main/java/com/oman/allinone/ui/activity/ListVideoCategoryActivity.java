@@ -8,22 +8,28 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.google.gson.*;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.oman.allinone.R;
-import com.oman.allinone.adapter.SoundsAdapter;
 import com.oman.allinone.common.URLServices;
 import com.oman.allinone.dto.ListSoundCategoryDTO;
-import com.oman.allinone.event.GetListSoundEvent;
-import com.oman.allinone.event.GetListSoundResponseEvent;
+import com.oman.allinone.ui.adapter.SoundsAdapter;
+import com.oman.allinone.ui.event.GetListSoundEvent;
+import com.oman.allinone.ui.event.GetListSoundResponseEvent;
 import com.oman.allinone.utils.NetworkUtils;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import de.greenrobot.event.EventBus;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Trung on 5/8/2015.

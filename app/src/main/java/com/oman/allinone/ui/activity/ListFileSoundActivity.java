@@ -15,11 +15,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.oman.allinone.R;
-import com.oman.allinone.adapter.FileSoundAdapter;
+import com.oman.allinone.ui.adapter.FileSoundAdapter;
 import com.oman.allinone.common.URLServices;
 import com.oman.allinone.dto.ListSoundFileDTO;
-import com.oman.allinone.event.GetFileSoundEvent;
-import com.oman.allinone.event.GetFileSoundResponseEvent;
+import com.oman.allinone.ui.event.GetFileSoundEvent;
+import com.oman.allinone.ui.event.GetFileSoundResponseEvent;
 import com.oman.allinone.utils.NetworkUtils;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -86,7 +86,7 @@ public class ListFileSoundActivity extends Activity implements View.OnClickListe
 
     public void onEventBackgroundThread(GetFileSoundEvent event) throws IOException
     {
-        String url = URLServices.getInstance().getURLGetFileSounds(13);
+        String url = URLServices.getInstance().getURLGetFileSounds(file_id);
         Request request = new Request.Builder()
                 .url(url)
                 .build();
