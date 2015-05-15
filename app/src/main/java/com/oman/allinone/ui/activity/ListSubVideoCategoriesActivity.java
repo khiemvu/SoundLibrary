@@ -16,7 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.oman.allinone.R;
 import com.oman.allinone.common.URLServices;
-import com.oman.allinone.dto.ListSubSoundCategoryDTO;
+import com.oman.allinone.dto.SubSoundCategoryDTO;
 import com.oman.allinone.ui.adapter.SubSoundsAdapter;
 import com.oman.allinone.ui.event.GetSubVideoEvent;
 import com.oman.allinone.ui.event.GetSubVideoResponseEvent;
@@ -59,7 +59,7 @@ public class ListSubVideoCategoriesActivity extends Activity implements View.OnC
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 Intent intent = new Intent(getApplicationContext(),ListFileVideoActivity.class);
-                intent.putExtra("file_id",((ListSubSoundCategoryDTO)soundsAdapter.getItem(position)).getId());
+                intent.putExtra("file_id", ((SubSoundCategoryDTO) soundsAdapter.getItem(position)).getId());
                 startActivity(intent);
             }
         });
@@ -88,14 +88,14 @@ public class ListSubVideoCategoriesActivity extends Activity implements View.OnC
         JsonElement rootResult = jsonParser.parse(jsonResult);
         JsonObject rootResultObject = rootResult.getAsJsonObject();
         Gson gson = new Gson();
-        List<ListSubSoundCategoryDTO> results = new ArrayList<ListSubSoundCategoryDTO>();
-        ListSubSoundCategoryDTO temp;
+        List<SubSoundCategoryDTO> results = new ArrayList<SubSoundCategoryDTO>();
+        SubSoundCategoryDTO temp;
         if (!rootResultObject.get("data").equals(null)) {
             JsonArray resultDTOJson = rootResultObject.get("data").getAsJsonArray();
             Iterator<JsonElement> iterator = resultDTOJson.iterator();
 
             while (iterator.hasNext()) {
-                temp = gson.fromJson(iterator.next(), ListSubSoundCategoryDTO.class);
+                temp = gson.fromJson(iterator.next(), SubSoundCategoryDTO.class);
                 results.add(temp);
             }
         }

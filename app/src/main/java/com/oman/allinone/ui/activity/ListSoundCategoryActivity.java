@@ -15,9 +15,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.oman.allinone.R;
+import com.oman.allinone.dto.SoundCategoryDTO;
 import com.oman.allinone.ui.adapter.SoundsAdapter;
 import com.oman.allinone.common.URLServices;
-import com.oman.allinone.dto.ListSoundCategoryDTO;
 import com.oman.allinone.ui.event.GetListSoundEvent;
 import com.oman.allinone.ui.event.GetListSoundResponseEvent;
 import com.oman.allinone.utils.NetworkUtils;
@@ -59,8 +59,9 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), ListSubSoundCategoriesActivity.class);
-                ListSoundCategoryDTO listSoundDTO = (ListSoundCategoryDTO) lvContent.getItemAtPosition(position);
+                SoundCategoryDTO listSoundDTO = (SoundCategoryDTO) lvContent.getItemAtPosition(position);
                 intent.putExtra("category_id", listSoundDTO.getId());
+                intent.putExtra("category_name", listSoundDTO.getTitle());
                 startActivity(intent);
             }
         });
@@ -96,14 +97,14 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
         JsonElement rootResult = jsonParser.parse(jsonResult);
         JsonObject rootResultObject = rootResult.getAsJsonObject();
         Gson gson = new Gson();
-        List<ListSoundCategoryDTO> results = new ArrayList<ListSoundCategoryDTO>();
-        ListSoundCategoryDTO temp;
+        List<SoundCategoryDTO> results = new ArrayList<SoundCategoryDTO>();
+        SoundCategoryDTO temp;
         if (!rootResultObject.get("data").equals(null)) {
             JsonArray resultDTOJson = rootResultObject.get("data").getAsJsonArray();
             Iterator<JsonElement> iterator = resultDTOJson.iterator();
 
             while (iterator.hasNext()) {
-                temp = gson.fromJson(iterator.next(), ListSoundCategoryDTO.class);
+                temp = gson.fromJson(iterator.next(), SoundCategoryDTO.class);
                 results.add(temp);
             }
         }

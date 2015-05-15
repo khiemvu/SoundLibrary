@@ -16,7 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.oman.allinone.R;
 import com.oman.allinone.common.URLServices;
-import com.oman.allinone.dto.ListSoundFileDTO;
+import com.oman.allinone.dto.SoundFileDTO;
 import com.oman.allinone.ui.adapter.FileSoundAdapter;
 import com.oman.allinone.ui.event.GetFileSoundEvent;
 import com.oman.allinone.ui.event.GetFileSoundResponseEvent;
@@ -95,8 +95,8 @@ public class ListFileVideoActivity extends Activity implements View.OnClickListe
         JsonElement rootResult = jsonParser.parse(jsonResult);
         JsonObject rootResultObject = rootResult.getAsJsonObject();
         Gson gson = new Gson();
-        List<ListSoundFileDTO> results = new ArrayList<ListSoundFileDTO>();
-        ListSoundFileDTO temp;
+        List<SoundFileDTO> results = new ArrayList<SoundFileDTO>();
+        SoundFileDTO temp;
         if (!rootResultObject.get("data").equals(null))
         {
             JsonArray resultDTOJson = rootResultObject.get("data").getAsJsonArray();
@@ -104,7 +104,7 @@ public class ListFileVideoActivity extends Activity implements View.OnClickListe
 
             while (iterator.hasNext())
             {
-                temp = gson.fromJson(iterator.next(), ListSoundFileDTO.class);
+                temp = gson.fromJson(iterator.next(), SoundFileDTO.class);
                 results.add(temp);
             }
         }
@@ -113,7 +113,7 @@ public class ListFileVideoActivity extends Activity implements View.OnClickListe
 
     public void onEventMainThread(GetFileSoundResponseEvent event)
     {
-        fileSoundAdapter = new FileSoundAdapter(this, event.getListSoundFileDTO());
+        fileSoundAdapter = new FileSoundAdapter(this, event.getSoundFileDTO());
         lvContent.setAdapter(fileSoundAdapter);
     }
 
@@ -129,7 +129,7 @@ public class ListFileVideoActivity extends Activity implements View.OnClickListe
     {
         Intent intent = new Intent(getApplicationContext(), PlayVideoActivity
                 .class);
-        intent.putExtra("url", ((ListSoundFileDTO) fileSoundAdapter.getItem(position)).getExtern_file());
+        intent.putExtra("url", ((SoundFileDTO) fileSoundAdapter.getItem(position)).getExtern_file());
         startActivity(intent);
     }
 }

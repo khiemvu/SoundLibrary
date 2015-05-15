@@ -15,9 +15,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.oman.allinone.R;
+import com.oman.allinone.dto.SubSoundCategoryDTO;
 import com.oman.allinone.ui.adapter.SubSoundsAdapter;
 import com.oman.allinone.common.URLServices;
-import com.oman.allinone.dto.ListSubSoundCategoryDTO;
 import com.oman.allinone.ui.event.GetSubSoundEvent;
 import com.oman.allinone.ui.event.GetSubSoundResponseEvent;
 import com.oman.allinone.utils.NetworkUtils;
@@ -40,6 +40,7 @@ public class ListSubSoundCategoriesActivity extends Activity implements View.OnC
     private TextView btBack, tvTitle;
     private Button btHome, btSearch, btShare, btFavourite;
     private ListView lvContent;
+    private String category_name;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,7 @@ public class ListSubSoundCategoriesActivity extends Activity implements View.OnC
         btShare = (Button) findViewById(R.id.btShare);
         Bundle extras = getIntent().getExtras();
         category_id = extras.getInt("category_id");
+        category_name = extras.getString("category_name");
         btBack.setOnClickListener(this);
         EventBus.getDefault().register(this);
         getDataFromServer();
@@ -61,8 +63,10 @@ public class ListSubSoundCategoriesActivity extends Activity implements View.OnC
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), ListFileSoundActivity.class);
-                ListSubSoundCategoryDTO listSoundDTO = (ListSubSoundCategoryDTO) lvContent.getItemAtPosition(position);
+                SubSoundCategoryDTO listSoundDTO = (SubSoundCategoryDTO) lvContent.getItemAtPosition(position);
                 intent.putExtra("file_id", listSoundDTO.getId());
+                intent.putExtra("subCategory_name", listSoundDTO.getTitle());
+                intent.putExtra("category_name", category_name);
                 startActivity(intent);
             }
         });
@@ -98,14 +102,14 @@ public class ListSubSoundCategoriesActivity extends Activity implements View.OnC
         JsonElement rootResult = jsonParser.parse(jsonResult);
         JsonObject rootResultObject = rootResult.getAsJsonObject();
         Gson gson = new Gson();
-        List<ListSubSoundCategoryDTO> results = new ArrayList<ListSubSoundCategoryDTO>();
-        ListSubSoundCategoryDTO temp;
+        List<SubSoundCategoryDTO> results = new ArrayList<SubSoundCategoryDTO>();
+        SubSoundCategoryDTO temp;
         if (!rootResultObject.get("data").equals(null)) {
             JsonArray resultDTOJson = rootResultObject.get("data").getAsJsonArray();
             Iterator<JsonElement> iterator = resultDTOJson.iterator();
 
             while (iterator.hasNext()) {
-                temp = gson.fromJson(iterator.next(), ListSubSoundCategoryDTO.class);
+                temp = gson.fromJson(iterator.next(), SubSoundCategoryDTO.class);
                 results.add(temp);
             }
         }

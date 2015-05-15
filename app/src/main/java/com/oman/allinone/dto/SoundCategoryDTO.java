@@ -1,9 +1,9 @@
 package com.oman.allinone.dto;
 
 /**
- * Created by Khiemvx on 5/8/2015.
+ * Created by Khiemvx on 5/7/2015.
  */
-public class ListSubSoundCategoryDTO {
+public class SoundCategoryDTO {
     private int id;
     private int parent_id;
     private int lft;
@@ -12,7 +12,7 @@ public class ListSubSoundCategoryDTO {
     private String title;
     private String alias;
 
-    public ListSubSoundCategoryDTO() {
+    public SoundCategoryDTO() {
     }
 
     public int getId() {
@@ -31,22 +31,6 @@ public class ListSubSoundCategoryDTO {
         this.parent_id = parent_id;
     }
 
-    public int getLft() {
-        return lft;
-    }
-
-    public void setLft(int lft) {
-        this.lft = lft;
-    }
-
-    public int getRgt() {
-        return rgt;
-    }
-
-    public void setRgt(int rgt) {
-        this.rgt = rgt;
-    }
-
     public int getLevel() {
         return level;
     }
@@ -63,6 +47,22 @@ public class ListSubSoundCategoryDTO {
         this.title = title;
     }
 
+    public int getLft() {
+        return lft;
+    }
+
+    public void setLft(int lft) {
+        this.lft = lft;
+    }
+
+    public int getRgt() {
+        return rgt;
+    }
+
+    public void setRgt(int rgt) {
+        this.rgt = rgt;
+    }
+
     public String getAlias() {
         return alias;
     }
@@ -70,5 +70,4 @@ public class ListSubSoundCategoryDTO {
     public void setAlias(String alias) {
         this.alias = alias;
     }
-
 }

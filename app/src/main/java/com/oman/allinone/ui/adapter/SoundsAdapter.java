@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.oman.allinone.R;
-import com.oman.allinone.dto.ListSoundCategoryDTO;
+import com.oman.allinone.dto.SoundCategoryDTO;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ import java.util.List;
  */
 public class SoundsAdapter extends BaseAdapter {
     private final Activity context;
-    private final List<ListSoundCategoryDTO> listContents;
+    private final List<SoundCategoryDTO> listContents;
     private LayoutInflater inflater;
 
-    public SoundsAdapter(Activity context, List<ListSoundCategoryDTO> listContents) {
+    public SoundsAdapter(Activity context, List<SoundCategoryDTO> listContents) {
         this.context = context;
         this.listContents = listContents;
     }

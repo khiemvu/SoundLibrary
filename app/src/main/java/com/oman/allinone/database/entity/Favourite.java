@@ -15,16 +15,20 @@ public class Favourite {
     protected String subCategoryName;
     @DatabaseField(columnName = "FILE_NAME")
     protected String fileName;
-    @DatabaseField(columnName = "_ID", id = true)
-    private String id;
+    @DatabaseField(columnName = "_ID", generatedId = true)
+    private int id;
     @DatabaseField(columnName = "FILE_ID")
     private String fileID;
+    @DatabaseField(columnName = "POSITION")
+    private int position;
+    @DatabaseField(columnName = "URL")
+    private String url;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -60,9 +64,27 @@ public class Favourite {
         this.fileName = fileName;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public interface Properties {
         public static final String ID = "_ID";
         public static final String FILE_ID = "FILE_ID";
+        public static final String URL = "URL";
+        public static final String POSITION = "POSITION";
         public static final String CATEGORY_NAME = "CATEGORY_NAME";
         public static final String SUB_CATEGORY_NAME = "SUB_CATEGORY_NAME";
         public static final String FILE_NAME = "FILE_NAME";

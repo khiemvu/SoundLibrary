@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.oman.allinone.R;
-import com.oman.allinone.dto.ListSoundFileDTO;
+import com.oman.allinone.dto.SoundFileDTO;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ import java.util.List;
  */
 public class FileSoundAdapter extends BaseAdapter {
     private final Activity context;
-    private List<ListSoundFileDTO> listContents;
+    private List<SoundFileDTO> listContents;
     private LayoutInflater inflater;
 
-    public FileSoundAdapter(Activity context, List<ListSoundFileDTO> listContents) {
+    public FileSoundAdapter(Activity context, List<SoundFileDTO> listContents) {
         this.context = context;
         this.listContents = listContents;
     }
@@ -59,11 +59,11 @@ public class FileSoundAdapter extends BaseAdapter {
         return rowView;
     }
 
-    public List<ListSoundFileDTO> getListContents() {
+    public List<SoundFileDTO> getListContents() {
         return listContents;
     }
 
-    public void setListContents(List<ListSoundFileDTO> listContents) {
+    public void setListContents(List<SoundFileDTO> listContents) {
         this.listContents = listContents;
     }
 

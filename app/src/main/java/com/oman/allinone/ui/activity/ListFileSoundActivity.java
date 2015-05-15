@@ -15,9 +15,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.oman.allinone.R;
+import com.oman.allinone.dto.SoundFileDTO;
 import com.oman.allinone.ui.adapter.FileSoundAdapter;
 import com.oman.allinone.common.URLServices;
-import com.oman.allinone.dto.ListSoundFileDTO;
 import com.oman.allinone.ui.event.GetFileSoundEvent;
 import com.oman.allinone.ui.event.GetFileSoundResponseEvent;
 import com.oman.allinone.utils.NetworkUtils;
@@ -41,6 +41,7 @@ public class ListFileSoundActivity extends Activity implements View.OnClickListe
     private TextView btBack, tvTitle;
     private Button btHome, btSearch, btShare, btFavourite;
     private ListView lvContent;
+    private String category_name, subCategory_name;
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -58,6 +59,8 @@ public class ListFileSoundActivity extends Activity implements View.OnClickListe
         lvContent.setOnItemClickListener(this);
         Bundle extras = getIntent().getExtras();
         file_id = extras.getInt("file_id");
+        category_name = extras.getString("category_name");
+        subCategory_name = extras.getString("subCategory_name");
         EventBus.getDefault().register(this);
         getDataFromServer();
     }
@@ -97,8 +100,8 @@ public class ListFileSoundActivity extends Activity implements View.OnClickListe
         JsonElement rootResult = jsonParser.parse(jsonResult);
         JsonObject rootResultObject = rootResult.getAsJsonObject();
         Gson gson = new Gson();
-        List<ListSoundFileDTO> results = new ArrayList<ListSoundFileDTO>();
-        ListSoundFileDTO temp;
+        List<SoundFileDTO> results = new ArrayList<SoundFileDTO>();
+        SoundFileDTO temp;
         if (!rootResultObject.get("data").equals(null))
         {
             JsonArray resultDTOJson = rootResultObject.get("data").getAsJsonArray();
@@ -106,7 +109,7 @@ public class ListFileSoundActivity extends Activity implements View.OnClickListe
 
             while (iterator.hasNext())
             {
-                temp = gson.fromJson(iterator.next(), ListSoundFileDTO.class);
+                temp = gson.fromJson(iterator.next(), SoundFileDTO.class);
                 results.add(temp);
             }
         }
@@ -115,7 +118,7 @@ public class ListFileSoundActivity extends Activity implements View.OnClickListe
 
     public void onEventMainThread(GetFileSoundResponseEvent event)
     {
-        fileSoundAdapter = new FileSoundAdapter(this, event.getListSoundFileDTO());
+        fileSoundAdapter = new FileSoundAdapter(this, event.getSoundFileDTO());
         lvContent.setAdapter(fileSoundAdapter);
     }
 
@@ -130,8 +133,11 @@ public class ListFileSoundActivity extends Activity implements View.OnClickListe
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
         Intent intent = new Intent(getApplicationContext(),PlaySoundActivity.class);
-        intent.putExtra("url",((ListSoundFileDTO)fileSoundAdapter.getItem(position)).getExtern_file());
+        intent.putExtra("url", ((SoundFileDTO) fileSoundAdapter.getItem(position)).getExtern_file());
         intent.putExtra("position",position);
+        intent.putExtra("category_name", category_name);
+        intent.putExtra("subCategory_name", subCategory_name);
+        intent.putExtra("file_name", ((SoundFileDTO) fileSoundAdapter.getItem(position)).getFile_title());
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("data", (ArrayList<? extends android.os.Parcelable>) fileSoundAdapter.getListContents());
         intent.putExtras(bundle);

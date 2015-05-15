@@ -16,7 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.oman.allinone.R;
 import com.oman.allinone.common.URLServices;
-import com.oman.allinone.dto.ListSoundCategoryDTO;
+import com.oman.allinone.dto.SoundCategoryDTO;
 import com.oman.allinone.ui.adapter.SoundsAdapter;
 import com.oman.allinone.ui.event.GetListSoundEvent;
 import com.oman.allinone.ui.event.GetListSoundResponseEvent;
@@ -34,15 +34,13 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by Trung on 5/8/2015.
  */
-public class ListVideoCategoryActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener
-{
+public class ListVideoCategoryActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
     SoundsAdapter soundsAdapter;
     private TextView btBack;
     private Button btHome, btSearch, btShare, btFavourite;
     private ListView lvContent;
 
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_sound_category);
         lvContent = (ListView) findViewById(R.id.lvContent);
@@ -57,20 +55,17 @@ public class ListVideoCategoryActivity extends Activity implements View.OnClickL
         getDataFromServer();
     }
 
-    private void getDataFromServer()
-    {
+    private void getDataFromServer() {
         EventBus.getDefault().post(new GetListSoundEvent());
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         super.onBackPressed();
     }
 
 
-    public void onEventBackgroundThread(GetListSoundEvent event) throws IOException
-    {
+    public void onEventBackgroundThread(GetListSoundEvent event) throws IOException {
         String url = URLServices.getInstance().getURLGetListVideos();
         Request request = new Request.Builder()
                 .url(url)
@@ -82,44 +77,40 @@ public class ListVideoCategoryActivity extends Activity implements View.OnClickL
         JsonElement rootResult = jsonParser.parse(jsonResult);
         JsonObject rootResultObject = rootResult.getAsJsonObject();
         Gson gson = new Gson();
-        List<ListSoundCategoryDTO> results = new ArrayList<ListSoundCategoryDTO>();
-        ListSoundCategoryDTO temp;
+        List<SoundCategoryDTO> results = new ArrayList<SoundCategoryDTO>();
+        SoundCategoryDTO temp;
         if (!rootResultObject.get("data").equals(null)) {
             JsonArray resultDTOJson = rootResultObject.get("data").getAsJsonArray();
             Iterator<JsonElement> iterator = resultDTOJson.iterator();
 
             while (iterator.hasNext()) {
-                temp = gson.fromJson(iterator.next(), ListSoundCategoryDTO.class);
+                temp = gson.fromJson(iterator.next(), SoundCategoryDTO.class);
                 results.add(temp);
             }
         }
         EventBus.getDefault().post(new GetListSoundResponseEvent(results));
     }
 
-    public void onEventMainThread(GetListSoundResponseEvent event)
-    {
+    public void onEventMainThread(GetListSoundResponseEvent event) {
         soundsAdapter = new SoundsAdapter(this, event.getListSoundDTOs());
         lvContent.setAdapter(soundsAdapter);
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
 
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-    {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getApplicationContext(), ListSubVideoCategoriesActivity.class);
-        intent.putExtra("parent_id", ((ListSoundCategoryDTO)soundsAdapter.getItem(position)).getId());
+        intent.putExtra("parent_id", ((SoundCategoryDTO) soundsAdapter.getItem(position)).getId());
         startActivity(intent);
     }
 }
