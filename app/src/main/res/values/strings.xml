@@ -13,5 +13,7 @@
     <string name="title_activity_play_sound">PlaySoundActivity</string>
     <string name="title_activity_list_file_video">ListFileVideoActivity</string>
     <string name="title_activity_play_video">PlayVideoActivity</string>
+    <string name="search">Search</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

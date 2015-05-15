@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import com.oman.allinone.R;
 import com.oman.allinone.database.entity.Favourite;
 import com.oman.allinone.database.ormlite.DatabaseHelper;
@@ -21,7 +20,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class PlaySoundActivity extends Activity implements
-        View.OnClickListener, View.OnTouchListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener {
+        View.OnClickListener, View.OnTouchListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener
+{
     private final Handler handler = new Handler();
     List<SoundFileDTO> listFie;
     private ImageView buttonPlayPause;
@@ -36,7 +36,8 @@ public class PlaySoundActivity extends Activity implements
     private Button btHome, btSearch, btShare, btFavourite;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_sound);
         buttonPlayPause = (ImageView) findViewById(R.id.btPlay);
@@ -59,18 +60,22 @@ public class PlaySoundActivity extends Activity implements
         category_name = getIntent().getExtras().getString("category_name");
         subCategory_name = getIntent().getExtras().getString("subCategory_name");
         file_name = getIntent().getExtras().getString("file_name");
-        url = listFie.get(position).getExtern_file();
-        tvName.setText(listFie.get(position).getFile_title());
+        url = getIntent().getExtras().getString("url");
+        tvName.setText(file_name);
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnBufferingUpdateListener(this);
         mediaPlayer.setOnCompletionListener(this);
     }
 
-    private void primarySeekBarProgressUpdater() {
+    private void primarySeekBarProgressUpdater()
+    {
         seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100)); // This math construction give a percentage of "was playing"/"song length"
-        if (mediaPlayer.isPlaying()) {
-            Runnable notification = new Runnable() {
-                public void run() {
+        if (mediaPlayer.isPlaying())
+        {
+            Runnable notification = new Runnable()
+            {
+                public void run()
+                {
                     primarySeekBarProgressUpdater();
                 }
             };
@@ -80,27 +85,36 @@ public class PlaySoundActivity extends Activity implements
 
 
     @Override
-    public void onBufferingUpdate(MediaPlayer mp, int percent) {
+    public void onBufferingUpdate(MediaPlayer mp, int percent)
+    {
         seekBarProgress.setSecondaryProgress(percent);
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
             case R.id.btPlay:
-                try {
+                try
+                {
                     mediaPlayer.setDataSource(url);
                     mediaPlayer.prepare();
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     e.printStackTrace();
                 }
 
                 mediaFileLengthInMilliseconds = mediaPlayer.getDuration(); // gets the song length in milliseconds from URL
 
-                if (!mediaPlayer.isPlaying()) {
+                if (!mediaPlayer.isPlaying())
+                {
                     mediaPlayer.start();
                     buttonPlayPause.setImageResource(R.drawable.pause);
-                } else {
+                }
+                else
+                {
                     mediaPlayer.pause();
                     buttonPlayPause.setImageResource(R.drawable.play);
                 }
@@ -108,7 +122,8 @@ public class PlaySoundActivity extends Activity implements
                 primarySeekBarProgressUpdater();
                 break;
             case R.id.btBack:
-                if (position > 0) {
+                if (position > 0)
+                {
                     mediaPlayer.stop();
                     buttonPlayPause.setImageResource(R.drawable.play);
                     seekBarProgress.setSecondaryProgress(0);
@@ -118,7 +133,8 @@ public class PlaySoundActivity extends Activity implements
                 }
                 break;
             case R.id.btNext:
-                if (position < (listFie.size() - 1)) {
+                if (position < (listFie.size() - 1))
+                {
                     mediaPlayer.stop();
                     buttonPlayPause.setImageResource(R.drawable.play);
                     seekBarProgress.setSecondaryProgress(0);
@@ -134,9 +150,12 @@ public class PlaySoundActivity extends Activity implements
                 favourite.setFileName(file_name);
                 favourite.setPosition(position);
                 favourite.setUrl(url);
-                try {
+                try
+                {
                     DatabaseHelper.getInstance(this).getFavouriteDAO().createOrUpdate(favourite);
-                } catch (SQLException e) {
+                }
+                catch (SQLException e)
+                {
                     Log.e(this.getClass().getName(), "Can't not create or update db");
                 }
                 break;
@@ -146,15 +165,19 @@ public class PlaySoundActivity extends Activity implements
     }
 
     @Override
-    public void onCompletion(MediaPlayer mp) {
+    public void onCompletion(MediaPlayer mp)
+    {
         buttonPlayPause.setImageResource(R.drawable.play);
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (v.getId() == R.id.seekBar) {
+    public boolean onTouch(View v, MotionEvent event)
+    {
+        if (v.getId() == R.id.seekBar)
+        {
             /** Seekbar onTouch event handler. Method which seeks MediaPlayer to seekBar primary progress position*/
-            if (mediaPlayer.isPlaying()) {
+            if (mediaPlayer.isPlaying())
+            {
                 SeekBar sb = (SeekBar) v;
                 int playPositionInMillisecconds = (mediaFileLengthInMilliseconds / 100) * sb.getProgress();
                 mediaPlayer.seekTo(playPositionInMillisecconds);

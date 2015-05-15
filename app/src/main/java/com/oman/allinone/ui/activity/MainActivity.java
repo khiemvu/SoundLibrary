@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-
 import com.oman.allinone.R;
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -22,11 +20,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btVideo = (Button) findViewById(R.id.btVideo);
         btFavourite = (Button) findViewById(R.id.btFavourite);
         btAbout = (Button) findViewById(R.id.btAbout);
-
-
         btAbout.setOnClickListener(this);
         btSound.setOnClickListener(this);
         btVideo.setOnClickListener(this);
+        btFavourite.setOnClickListener(this);
     }
 
     @Override
@@ -49,6 +46,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btVideo:
                 intent = new Intent(getApplicationContext(), ListVideoCategoryActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btFavourite:
+                intent = new Intent(getApplicationContext(), FavouriteActivity.class);
                 startActivity(intent);
                 break;
         }

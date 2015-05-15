@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.oman.allinone.R;
 import com.oman.allinone.dto.SoundCategoryDTO;
 
@@ -18,7 +17,7 @@ import java.util.List;
  */
 public class SoundsAdapter extends BaseAdapter {
     private final Activity context;
-    private final List<SoundCategoryDTO> listContents;
+    private List<SoundCategoryDTO> listContents;
     private LayoutInflater inflater;
 
     public SoundsAdapter(Activity context, List<SoundCategoryDTO> listContents) {
@@ -57,6 +56,16 @@ public class SoundsAdapter extends BaseAdapter {
         holder.text.setText(listContents.get(position).getTitle());
 
         return rowView;
+    }
+
+    public List<SoundCategoryDTO> getListContents()
+    {
+        return listContents;
+    }
+
+    public void setListContents(List<SoundCategoryDTO> listContents)
+    {
+        this.listContents = listContents;
     }
 
     static class ViewHolder {
