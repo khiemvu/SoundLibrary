@@ -1,57 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.oman.allinone"
-          android:versionCode="1"
-          android:versionName="1.0">
+    package="com.oman.allinone"
+    android:versionCode="1"
+    android:versionName="1.0">
 
     <uses-sdk
-            android:minSdkVersion="10"
-            android:targetSdkVersion="15"/>
+        android:minSdkVersion="10"
+        android:targetSdkVersion="15" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- Permission: Writing to SDCard -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-            android:icon="@drawable/icon_app"
+        android:icon="@drawable/icon_app"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar">
+        <activity
+            android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar">
-        <activity
-                android:name=".ui.activity.MainActivity"
-                android:label="@string/app_name"
-                android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.AboutActivity"/>
-        <activity android:name=".ui.activity.InfoActivity"/>
-        <activity android:name=".ui.activity.ListSoundCategoryActivity"/>
-        <activity android:name=".ui.activity.ListVideoCategoryActivity"/>
-        <activity android:name=".ui.activity.FavouriteActivity"/>
+        <activity android:name=".ui.activity.AboutActivity" />
+        <activity android:name=".ui.activity.InfoActivity" />
+        <activity android:name=".ui.activity.ListSoundCategoryActivity" />
+        <activity android:name=".ui.activity.ListVideoCategoryActivity" />
+        <activity android:name=".ui.activity.FavouriteActivity" />
         <activity
-                android:name=".ui.activity.ListSubVideoCategoriesActivity"
-                android:label="@string/title_activity_list_video_child_cagetory">
-        </activity>
-        <activity android:name=".ui.activity.ListFileSoundActivity"/>
-        <activity android:name=".ui.activity.ListSubSoundCategoriesActivity"/>
+            android:name=".ui.activity.ListSubVideoCategoriesActivity"
+            android:label="@string/title_activity_list_video_child_cagetory"></activity>
+        <activity android:name=".ui.activity.ListFileSoundActivity" />
+        <activity android:name=".ui.activity.ListSubSoundCategoriesActivity" />
         <activity
-                android:name=".ui.activity.PlaySoundActivity"
-                android:label="@string/title_activity_play_sound">
-        </activity>
+            android:name=".ui.activity.PlaySoundActivity"
+            android:label="@string/title_activity_play_sound"></activity>
         <activity
-                android:name=".ui.activity.ListFileVideoActivity"
-                android:label="@string/title_activity_list_file_video">
-        </activity>
+            android:name=".ui.activity.ListFileVideoActivity"
+            android:label="@string/title_activity_list_file_video"></activity>
         <activity
-                android:name=".ui.activity.PlayVideoActivity"
-                android:label="@string/title_activity_play_video">
-        </activity>
+            android:name=".ui.activity.PlayVideoActivity"
+            android:label="@string/title_activity_play_video"></activity>
     </application>
 
 </manifest>

@@ -6,7 +6,7 @@
     <color name="blue">#0033cc</color>
     <color name="black">#000000</color>
     <color name="border_login">#dedede</color>
-    <color name="color_category">#ff7FFF00</color>
-    <color name="color_file">#ff526F35</color>
-    <color name="color_sub_category">#607CFC00</color>
+    <color name="color_category">#FF9966</color>0
+    <color name="color_sub_category">#DD9966</color>
+    <color name="color_file">#CC9966</color>
 </resources>

@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class SubSoundsAdapter extends BaseAdapter {
     private final Activity context;
-    private final List<SubSoundCategoryDTO> listContents;
+    private List<SubSoundCategoryDTO> listContents;
     private LayoutInflater inflater;
 
     public SubSoundsAdapter(Activity context, List<SubSoundCategoryDTO> listContents) {
@@ -57,6 +57,14 @@ public class SubSoundsAdapter extends BaseAdapter {
         holder.text.setText(listContents.get(position).getTitle());
 
         return rowView;
+    }
+
+    public List<SubSoundCategoryDTO> getListContents() {
+        return listContents;
+    }
+
+    public void setListContents(List<SubSoundCategoryDTO> listContents) {
+        this.listContents = listContents;
     }
 
     static class ViewHolder {

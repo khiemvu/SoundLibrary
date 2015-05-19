@@ -8,28 +8,30 @@
     <Button
         android:id="@+id/btHome"
         android:layout_width="30dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_weight="1"
-        android:background="@drawable/ic_home" />
+        android:background="@drawable/ic_menu_home" />
 
     <Button
         android:id="@+id/btSearch"
         android:layout_width="30dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_weight="1"
-        android:background="@drawable/ic_search" />
+        android:background="@drawable/ic_menu_search" />
 
     <Button
         android:id="@+id/btShare"
         android:layout_width="30dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_weight="1"
-        android:background="@drawable/ic_share" />
+        android:background="@drawable/ic_menu_share" />
 
-    <Button
+    <CheckBox
         android:id="@+id/btFavourite"
         android:layout_width="30dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_weight="1"
-        android:background="@drawable/ic_favourite" />
+        android:background="@drawable/bt_state"
+        android:button="@null"
+        android:enabled="false" />
 </LinearLayout>

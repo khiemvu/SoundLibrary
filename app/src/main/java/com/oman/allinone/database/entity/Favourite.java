@@ -18,11 +18,14 @@ public class Favourite {
     @DatabaseField(columnName = "_ID", generatedId = true)
     private int id;
     @DatabaseField(columnName = "FILE_ID")
-    private String fileID;
+    private int fileID;
     @DatabaseField(columnName = "POSITION")
     private int position;
     @DatabaseField(columnName = "URL")
     private String url;
+    @DatabaseField(columnName = "IS_FAVOURITE")
+    private boolean isFavourite;
+
 
     public int getId() {
         return id;
@@ -32,11 +35,11 @@ public class Favourite {
         this.id = id;
     }
 
-    public String getFileID() {
+    public int getFileID() {
         return fileID;
     }
 
-    public void setFileID(String fileID) {
+    public void setFileID(int fileID) {
         this.fileID = fileID;
     }
 
@@ -80,10 +83,19 @@ public class Favourite {
         this.url = url;
     }
 
+    public boolean isFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(boolean isFavourite) {
+        this.isFavourite = isFavourite;
+    }
+
     public interface Properties {
         public static final String ID = "_ID";
         public static final String FILE_ID = "FILE_ID";
         public static final String URL = "URL";
+        public static final String IS_FAVOURITE = "IS_FAVOURITE";
         public static final String POSITION = "POSITION";
         public static final String CATEGORY_NAME = "CATEGORY_NAME";
         public static final String SUB_CATEGORY_NAME = "SUB_CATEGORY_NAME";

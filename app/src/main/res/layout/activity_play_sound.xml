@@ -1,61 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@drawable/common_bg"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/common_bg"
+    android:orientation="vertical">
 
-    <include layout="@layout/action_bar"/>
+    <include layout="@layout/action_bar" />
 
-    <include layout="@layout/menu_common"/>
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-        <TextView
-                android:id="@+id/tvNameOfSound"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="@dimen/_40dp"
-                android:textColor="@color/black"/>
+    <include layout="@layout/menu_common" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/seekBar"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/_40dp"
+            android:src="@drawable/icon_app" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/rlButton" />
+
+        <RelativeLayout
+            android:id="@+id/rlButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/_20dp"
+            android:layout_marginTop="@dimen/_20dp">
+
+            <ImageView
+                android:id="@+id/btPlay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_app"
-                android:layout_gravity="center_horizontal"
-                />
-        <SeekBar
-                android:id="@+id/seekBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/play" />
+
+            <ImageView
+                android:id="@+id/btNext"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/seekBar"
-                android:layout_marginTop="@dimen/_40dp">
+                android:layout_marginLeft="@dimen/_40dp"
+                android:layout_toRightOf="@+id/btPlay"
+                android:background="@drawable/next" />
+
             <ImageView
-                    android:id="@+id/btPlay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/play"
-                    android:layout_centerHorizontal="true"/>
-            <ImageView
-                    android:id="@+id/btNext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/next"
-                    android:layout_toRightOf="@+id/btPlay"
-                    android:layout_marginLeft="@dimen/_40dp"/>
-            <ImageView
-                    android:id="@+id/btBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/back"
-                    android:layout_toLeftOf="@+id/btPlay"
-                    android:layout_marginRight="@dimen/_40dp"/>
+                android:id="@+id/btBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_40dp"
+                android:layout_toLeftOf="@+id/btPlay"
+                android:background="@drawable/back" />
         </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

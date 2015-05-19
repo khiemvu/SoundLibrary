@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <TextView android:layout_width="match_parent"
-              android:layout_height="@dimen/_50dp"
-              android:id="@+id/tvCategoryName"
-              android:background="@color/color_category"
-            />
-    <include layout="@layout/break_line"/>
-    <TextView android:layout_width="match_parent"
-              android:layout_height="@dimen/_50dp"
-              android:id="@+id/tvSubCategoryName"
-              android:background="@color/color_sub_category"
-            />
-    <include layout="@layout/break_line"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView android:layout_width="match_parent"
-              android:layout_height="@dimen/_50dp"
-              android:id="@+id/tvFileName"
-              android:background="@color/color_file"
-            />
-    <include layout="@layout/break_line"/>
+    <TextView
+        android:id="@+id/tvCategoryName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50dp"
+        android:background="@color/color_category"
+        android:gravity="left|center_vertical" />
+
+    <include layout="@layout/break_line" />
+
+    <TextView
+        android:id="@+id/tvSubCategoryName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50dp"
+        android:background="@color/color_sub_category"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="20dp" />
+
+    <include layout="@layout/break_line" />
+
+    <TextView
+        android:id="@+id/tvFileName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50dp"
+        android:background="@color/color_file"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="30dp" />
+
+    <include layout="@layout/break_line" />
 
 
 </LinearLayout>

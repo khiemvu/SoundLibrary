@@ -1,13 +1,27 @@
 package com.oman.allinone.ui.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.*;
-import com.google.gson.*;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.oman.allinone.R;
 import com.oman.allinone.common.URLServices;
 import com.oman.allinone.dto.SoundCategoryDTO;
@@ -19,10 +33,15 @@ import com.oman.allinone.utils.NetworkUtils;
 import com.oman.allinone.utils.StringUtils;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import de.greenrobot.event.EventBus;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import de.greenrobot.event.EventBus;
 
 
 /**
@@ -34,8 +53,10 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
     TextView tvCancelSearch;
     ImageView ivClearText;
     LinearLayout ll_search, ll_menu;
+    CheckBox btFavourite;
+    ProgressDialog dialog;
     private TextView btBack, tvTitle;
-    private Button btHome, btSearch, btShare, btFavourite;
+    private Button btHome, btSearch, btShare;
     private ListView lvContent;
     private List<SoundCategoryDTO> soundCategoryDTOs;
 
@@ -60,12 +81,24 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
         tvTitle.setText("Categories");
         btHome = (Button) findViewById(R.id.btHome);
         btSearch = (Button) findViewById(R.id.btSearch);
-        btFavourite = (Button) findViewById(R.id.btFavourite);
+        btFavourite = (CheckBox) findViewById(R.id.btFavourite);
         btShare = (Button) findViewById(R.id.btShare);
+        btShare.setOnClickListener(this);
         btBack.setOnClickListener(this);
         btSearch.setOnClickListener(this);
+        btHome.setOnClickListener(this);
         EventBus.getDefault().register(this);
-        getDataFromServer();
+        if (NetworkUtils.isOnline(this)) {
+            dialog = new ProgressDialog(this);
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.setMessage("Loading. Please wait...");
+            dialog.setIndeterminate(true);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+            getDataFromServer();
+        } else {
+            Toast.makeText(this, "Can't get data from server", Toast.LENGTH_LONG).show();
+        }
         lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -78,7 +111,7 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
         });
     }
 
-    public List<SoundCategoryDTO> getStaffMatchingWithText(List<SoundCategoryDTO> soundCategoryDTOs, String input)
+    public List<SoundCategoryDTO> getSoundMatchingWithText(List<SoundCategoryDTO> soundCategoryDTOs, String input)
     {
         List<SoundCategoryDTO> resultSearch = new ArrayList<SoundCategoryDTO>();
         for (SoundCategoryDTO soundCategoryDTO : soundCategoryDTOs)
@@ -91,6 +124,10 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
             }
         }
         return resultSearch;
+    }
+
+    private void getDataFromServer() {
+        EventBus.getDefault().post(new GetListSoundEvent());
     }
 
     TextWatcher textWatcher = new TextWatcher()
@@ -129,8 +166,8 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
                             public void run()
                             {
                                 ivClearText.setVisibility(View.VISIBLE);
-                                List<SoundCategoryDTO> staffMatchingWithText = getStaffMatchingWithText(soundCategoryDTOList, s.toString().toLowerCase().trim());
-                                soundsAdapter.setListContents(staffMatchingWithText);
+                                List<SoundCategoryDTO> soundCategoryMatchingWithText = getSoundMatchingWithText(soundCategoryDTOList, s.toString().toLowerCase().trim());
+                                soundsAdapter.setListContents(soundCategoryMatchingWithText);
                                 soundsAdapter.notifyDataSetChanged();
                             }
                         });
@@ -153,15 +190,9 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
         }
     };
 
-    private void getDataFromServer() {
-        EventBus.getDefault().post(new GetListSoundEvent());
-    }
-
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.tvBack:
                 finish();
                 break;
@@ -169,6 +200,14 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
                 ll_search.setVisibility(View.VISIBLE);
                 ll_menu.setVisibility(View.GONE);
                 break;
+            case R.id.btShare:
+                Intent dropbox = new Intent(Intent.ACTION_SEND);
+                dropbox.setType("text/plain");
+                dropbox.putExtra(Intent.EXTRA_TEXT, "اعمال الصلاة و الوضوء " +
+                        "\n https://play.google.com/store/apps/developer?id=Omani%20Muslim&hl=en");
+                startActivity(dropbox);
+                break;
+
             case R.id.ivCancelSearch:
                 etSearch.setText("");
                 break;
@@ -178,6 +217,10 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
                 ll_search.setVisibility(View.GONE);
                 ll_menu.setVisibility(View.VISIBLE);
                 CommonUtils.hideKeyboard(this);
+                break;
+            case R.id.btHome:
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -203,13 +246,11 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
         Gson gson = new Gson();
         List<SoundCategoryDTO> results = new ArrayList<SoundCategoryDTO>();
         SoundCategoryDTO temp;
-        if (!rootResultObject.get("data").equals(null))
-        {
+        if (!rootResultObject.get("data").equals(null)) {
             JsonArray resultDTOJson = rootResultObject.get("data").getAsJsonArray();
             Iterator<JsonElement> iterator = resultDTOJson.iterator();
 
-            while (iterator.hasNext())
-            {
+            while (iterator.hasNext()) {
                 temp = gson.fromJson(iterator.next(), SoundCategoryDTO.class);
                 results.add(temp);
             }
@@ -222,6 +263,7 @@ public class ListSoundCategoryActivity extends Activity implements View.OnClickL
         soundCategoryDTOs = event.getListSoundDTOs();
         soundsAdapter = new SoundsAdapter(this, soundCategoryDTOs);
         lvContent.setAdapter(soundsAdapter);
+        dialog.dismiss();
     }
 
     @Override
